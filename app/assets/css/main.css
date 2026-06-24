@@ -1,0 +1,57 @@
+@import "tailwindcss";
+@import "@nuxt/ui";
+
+@theme static {
+  --font-sans: "Source Serif 4", Georgia, "Times New Roman", serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
+
+  --color-stone-50: #faf9f7;
+  --color-stone-100: #f5f3ef;
+  --color-stone-200: #e8e4dc;
+  --color-stone-300: #d4cdc0;
+  --color-stone-400: #b8aea0;
+  --color-stone-500: #9c9080;
+  --color-stone-600: #7a6f62;
+  --color-stone-700: #5c5349;
+  --color-stone-800: #3d3731;
+  --color-stone-900: #1f1c19;
+  --color-stone-950: #121110;
+}
+
+:root {
+  --ui-bg: var(--color-stone-50);
+  --ui-bg-muted: var(--color-stone-100);
+  --ui-bg-elevated: var(--color-stone-100);
+  --ui-bg-accented: var(--color-stone-200);
+  --ui-border: var(--color-stone-300);
+  --ui-border-muted: var(--color-stone-200);
+  --ui-border-accented: var(--color-stone-400);
+  --ui-text: var(--color-stone-900);
+  --ui-text-muted: var(--color-stone-600);
+  --ui-text-dimmed: var(--color-stone-500);
+  --ui-text-highlighted: var(--color-stone-950);
+}
+
+.dark {
+  --ui-bg: var(--color-stone-950);
+  --ui-bg-muted: var(--color-stone-900);
+  --ui-bg-elevated: var(--color-stone-900);
+  --ui-bg-accented: var(--color-stone-800);
+  --ui-border: var(--color-stone-700);
+  --ui-border-muted: var(--color-stone-800);
+  --ui-border-accented: var(--color-stone-600);
+  --ui-text: var(--color-stone-100);
+  --ui-text-muted: var(--color-stone-400);
+  --ui-text-dimmed: var(--color-stone-500);
+  --ui-text-highlighted: var(--color-stone-50);
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-serif {
+  font-family: var(--font-serif);
+}
