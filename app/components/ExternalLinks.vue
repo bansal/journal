@@ -6,7 +6,7 @@ const { journal } = useAppConfig() as { journal: JournalConfig };
 <template>
   <div>
     <Heading>{{ journal.sections.externalLinks }}</Heading>
-    <ul class="space-y-2 text-xs leading-relaxed">
+    <ul class="space-y-2 text-sm leading-relaxed">
       <li v-for="link in journal.externalLinks" :key="link.id">
         <a
           :href="link.href"

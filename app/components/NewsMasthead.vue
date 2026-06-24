@@ -31,7 +31,7 @@ const formattedDate = computed(() =>
       to="/"
       class="inline-block group"
     >
-      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-default group-hover:opacity-80 transition-opacity">
+      <h1 class="font-serif text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-primary group-hover:opacity-80 transition-opacity">
         {{ journal.name }}
       </h1>
     </NuxtLink>

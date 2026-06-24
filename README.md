@@ -1,6 +1,6 @@
 # Journal
 
-A [Nuxt layer](https://nuxt.com/docs/getting-started/layers) that turns RSS feeds into a personal news reader. Extend it in your own Nuxt app, configure your journal in `app.config.ts`, and get a newspaper-style homepage with headlines, categories, and source listings.
+A [Nuxt layer](https://nuxt.com/docs/getting-started/layers) that turns RSS feeds into a personal news reader. Extend it in your own Nuxt app, configure your journal in `nuxt.config.ts`, and get a newspaper-style homepage with headlines, categories, and source listings.
 
 Built with [Nuxt UI](https://ui.nuxt.com) and Tailwind CSS.
 
@@ -11,6 +11,14 @@ Nuxt layers are extended directly in `nuxt.config.ts`—no npm install required.
 ```ts
 export default defineNuxtConfig({
   extends: ["github:bansal/journal"],
+  appConfig: {
+    journal: {
+      name: "My Journal",
+      tagline: "My personal news aggregator",
+      description:
+        "A minimal news journal aggregating the latest headlines from various sources.",
+    },
+  },
 });
 ```
 
@@ -28,81 +36,86 @@ export default defineNuxtConfig({
 });
 ```
 
-That pulls in the layer's pages, components, server API (`/api/news`), styling, and default app config. Your app only needs to override what you want to change—most importantly the `journal` block in `app.config.ts`.
+That pulls in the layer's pages, components, server API (`/api/news`), styling, and default app config. Your app only needs to override what you want to change—most importantly the `journal` block in `nuxt.config.ts` under `appConfig`.
 
 ### Configure your journal
 
-Create or edit `app/app.config.ts` in your project. Values you set are deep-merged with the layer defaults:
+Add an `appConfig` block to your `nuxt.config.ts`. Values you set are deep-merged with the layer defaults:
 
 ```ts
-export default defineAppConfig({
-  journal: {
-    name: "The Daily Reader",
-    tagline: "Curated headlines for curious minds",
-    description:
-      "A personal news journal aggregating tech, science, and culture.",
-    locale: "en-US",
-    lang: "en",
+export default defineNuxtConfig({
+  extends: ["github:bansal/journal"],
+  appConfig: {
+    journal: {
+      name: "The Daily Reader",
+      tagline: "Curated headlines for curious minds",
+      description:
+        "A personal news journal aggregating tech, science, and culture.",
+      locale: "en-US",
+      lang: "en",
 
-    mastheadSections: ["Tech", "Science", "Culture"],
+      mastheadSections: ["Tech", "Science", "Culture"],
 
-    newsSources: [
-      {
-        id: "hn",
-        name: "Hacker News",
-        url: "https://hnrss.org/frontpage",
-        link: "https://news.ycombinator.com",
-        category: "Tech",
+      newsSources: [
+        {
+          id: "hn",
+          name: "Hacker News",
+          url: "https://hnrss.org/frontpage",
+          link: "https://news.ycombinator.com",
+          category: "Tech",
+        },
+        {
+          id: "bbc-tech",
+          name: "BBC Technology",
+          url: "http://feeds.bbci.co.uk/news/technology/rss.xml",
+          link: "https://www.bbc.com/news/technology",
+          category: "Tech",
+        },
+      ],
+
+      externalLinks: [
+        {
+          id: "about",
+          name: "About this site",
+          href: "https://example.com/about",
+        },
+      ],
+
+      filter: {
+        thumbnailOnly: false,
+        latestDays: 7,
+        perSourceLimit: 10,
+        includeKeywords: [],
+        excludeKeywords: ["sponsored"],
       },
-      {
-        id: "bbc-tech",
-        name: "BBC Technology",
-        url: "http://feeds.bbci.co.uk/news/technology/rss.xml",
-        link: "https://www.bbc.com/news/technology",
-        category: "Tech",
-      },
-    ],
 
-    externalLinks: [
-      {
-        id: "about",
-        name: "About this site",
-        href: "https://example.com/about",
+      copy: {
+        loading: "Gathering today's headlines…",
+        errorTitle: "Unable to load news",
+        errorDescription: "Please check your connection and try again.",
+        retry: "Retry",
+        empty: "No articles available right now.",
       },
-    ],
 
-    filter: {
-      thumbnailOnly: false,
-      latestDays: 7,
-      perSourceLimit: 10,
-      includeKeywords: [],
-      excludeKeywords: ["sponsored"],
+      sections: {
+        latestHeadlines: "Latest Headlines",
+        bySection: "By Section",
+        sources: "Sources",
+        externalLinks: "External Links",
+      },
     },
 
-    copy: {
-      loading: "Gathering today's headlines…",
-      errorTitle: "Unable to load news",
-      errorDescription: "Please check your connection and try again.",
-      retry: "Retry",
-      empty: "No articles available right now.",
-    },
-
-    sections: {
-      latestHeadlines: "Latest Headlines",
-      bySection: "By Section",
-      sources: "Sources",
-      externalLinks: "External Links",
-    },
-  },
-
-  ui: {
-    colors: {
-      primary: "stone",
-      neutral: "stone",
+    ui: {
+      colors: {
+        primary: "stone",
+        neutral: "stone",
+      },
     },
   },
 });
 ```
+
+You can also use `app/app.config.ts` if you prefer to keep config separate from your Nuxt config—both merge with the layer defaults the same way.
 
 Run your app as usual:
 
@@ -114,7 +127,7 @@ The homepage fetches articles from `/api/news`, which reads `journal.newsSources
 
 ## Journal config reference
 
-All journal settings live under `app.config.ts` → `journal`. TypeScript types are provided by the layer via module augmentation, so `defineAppConfig({ journal: { ... } })` is fully typed.
+All journal settings live under `appConfig.journal` in `nuxt.config.ts` (or `journal` in `app/app.config.ts`). TypeScript types are provided by the layer via module augmentation, so both forms are fully typed.
 
 When the layer is extended, TypeScript picks up `JournalConfig` and related types automatically via module augmentation—no separate type import needed.
 
@@ -193,7 +206,7 @@ Filter order: dedupe → recency → per-source limit → keywords → thumbnail
 
 ### UI theme
 
-Override Nuxt UI colors under `ui.colors` in the same `app.config.ts`:
+Override Nuxt UI colors under `appConfig.ui.colors` in `nuxt.config.ts`:
 
 ```ts
 ui: {
@@ -203,6 +216,40 @@ ui: {
   },
 }
 ```
+
+### Custom styles
+
+Register a global stylesheet in your app's `nuxt.config.ts`:
+
+```ts
+export default defineNuxtConfig({
+  extends: ["github:bansal/journal"],
+  css: ["~/style.css"],
+});
+```
+
+Then override CSS variables in `style.css` (or `assets/css/style.css`—adjust the path to match your file):
+
+```css
+:root {
+  --font-sans: "Public Sans", system-ui, sans-serif;
+  --font-serif: "JetBrains Mono", monospace;
+
+  --ui-primary: var(--color-indigo-700);
+  --ui-bg: var(--ui-color-primary-50);
+  --ui-border: var(--ui-color-primary-200);
+}
+
+.dark {
+  --ui-primary: var(--color-indigo-300);
+  --ui-bg: var(--ui-color-primary-950);
+  --ui-border: var(--ui-color-primary-800);
+}
+```
+
+Load any custom fonts separately (for example via `@nuxt/fonts` or a `<link>` in `app.vue`). The layer ships with serif typography and a stone palette by default; these variables replace fonts, primary accent, background, and border colors without forking the layer.
+
+See the [Nuxt UI CSS variables docs](https://ui.nuxt.com/docs/getting-started/theme/css-variables) for the full list of available tokens and light/dark mode overrides.
 
 ## What the layer provides
 
@@ -246,7 +293,7 @@ pnpm preview    # Preview production build
 pnpm typecheck  # TypeScript check
 ```
 
-To try config changes locally, edit `app/app.config.ts` in this repository—the same structure applies when consuming the layer in another project.
+To try config changes locally, edit `app/app.config.ts` in this repository—the same `journal` structure applies in `nuxt.config.ts` when consuming the layer in another project.
 
 ## License
 

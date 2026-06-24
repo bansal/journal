@@ -39,13 +39,13 @@ function formatTime(date: string) {
         </div>
 
         <h3
-          class="font-serif text-lg font-semibold leading-snug text-default group-hover:underline decoration-1 underline-offset-2"
+          class="font-serif text-lg font-semibold leading-snug text-primary group-hover:underline decoration-1 underline-offset-2"
         >
           {{ article.title }}
         </h3>
 
         <p
-          class="mt-1.5 text-sm text-muted leading-relaxed line-clamp-2 hidden sm:block"
+          class="mt-1.5 text-base text-muted leading-relaxed line-clamp-2 hidden sm:block"
         >
           {{ article.summary }}
         </p>

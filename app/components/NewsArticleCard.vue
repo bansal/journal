@@ -73,12 +73,12 @@ function formatTime(date: string) {
       </div>
 
       <h2
-        class="font-serif text-xl sm:text-2xl font-bold leading-snug text-default group-hover:underline decoration-1 underline-offset-4"
+        class="font-serif text-xl sm:text-2xl font-bold leading-snug text-primary group-hover:underline decoration-1 underline-offset-4"
       >
         {{ article.title }}
       </h2>
 
-      <p class="mt-2 text-sm text-muted leading-relaxed line-clamp-3">
+      <p class="mt-2 text-base text-muted leading-relaxed line-clamp-3">
         {{ article.summary }}
       </p>
     </a>

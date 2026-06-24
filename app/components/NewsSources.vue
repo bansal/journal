@@ -18,7 +18,7 @@ const articleCountBySourceId = computed(() => {
 <template>
   <div v-if="journal.newsSources.length > 0">
     <Heading>{{ journal.sections.sources }}</Heading>
-    <ul class="space-y-2 text-xs leading-relaxed">
+    <ul class="space-y-2 text-sm leading-relaxed">
       <li
         v-for="source in journal.newsSources"
         :key="source.id"
