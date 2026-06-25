@@ -37,7 +37,7 @@ function formatTime(date: string) {
     <a
       :href="article.link"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer nofollow"
       class="block"
     >
       <div class="aspect-video overflow-hidden bg-elevated mb-4">

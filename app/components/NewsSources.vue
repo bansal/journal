@@ -27,7 +27,7 @@ const articleCountBySourceId = computed(() => {
         <a
           :href="source.link"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener noreferrer nofollow"
           class="text-muted hover:text-default hover:underline underline-offset-2 transition-colors"
         >
           {{ source.name }}

@@ -22,7 +22,7 @@ function formatTime(date: string) {
     <a
       :href="article.link"
       target="_blank"
-      rel="noopener noreferrer"
+      rel="noopener noreferrer nofollow"
       class="grid grid-cols-1 sm:grid-cols-[1fr_140px] gap-4 items-start"
     >
       <div>
