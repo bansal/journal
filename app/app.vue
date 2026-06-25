@@ -20,12 +20,8 @@ const year = useState("footer-year", () => new Date().getFullYear());
 
 const footerItems = computed(() => [
   {
-    label: "Made By Bansal",
+    label: "Made With Journal",
     to: "https://bansal.io/journal",
-  },
-  {
-    label: "Featured On",
-    to: "https://pitchwall.co/product/my-journal",
   },
 ]);
 </script>
